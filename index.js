@@ -11,6 +11,19 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+var Gpio = require('pigpio').Gpio,
+    led = new Gpio(7, {mode: Gpio.OUTPUT}),
+    dutyCycle = 0;
+
+setInterval(function () {
+  led.pwmWrite(dutyCycle);
+  console.log('led change' + dutyCycle)
+  dutyCycle += 5;
+  if (dutyCycle > 255) {
+    dutyCycle = 0;
+  }
+}, 20);
+
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
