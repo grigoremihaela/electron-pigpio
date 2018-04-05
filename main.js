@@ -58,3 +58,16 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+var Gpio = require('pigpio').Gpio,
+    led = new Gpio(17, {mode: Gpio.OUTPUT}),
+    dutyCycle = 0;
+
+setInterval(function () {
+  led.pwmWrite(dutyCycle);
+  console.log('led change' + dutyCycle)
+  dutyCycle += 5;
+  if (dutyCycle > 255) {
+    dutyCycle = 0;
+  }
+}, 20);
