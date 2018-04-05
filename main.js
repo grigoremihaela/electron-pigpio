@@ -1,3 +1,10 @@
+var express = require('express'); 
+var app = express();
+
+var Gpio = require('pigpio').Gpio,
+    led = new Gpio(17, {mode: Gpio.OUTPUT}),
+    dutyCycle = 0;
+
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -11,10 +18,6 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-var Gpio = require('pigpio').Gpio,
-    led = new Gpio(17, {mode: Gpio.OUTPUT}),
-    dutyCycle = 0;
-
 setInterval(function () {
   led.pwmWrite(dutyCycle);
   console.log('led change' + dutyCycle)
@@ -22,7 +25,7 @@ setInterval(function () {
   if (dutyCycle > 255) {
     dutyCycle = 0;
   }
-}, 20);
+}, 50);
 
 function createWindow () {
   // Create the browser window.
