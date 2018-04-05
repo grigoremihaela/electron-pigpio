@@ -21,7 +21,7 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
-
+console.log(path.join(__dirname, 'index.html'));
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 
